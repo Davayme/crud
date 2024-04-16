@@ -2,7 +2,7 @@
 @section('title', 'Mostrar Estudiante')
 @section('content')
     <h1>Mostrar Estudiante</h1>
-    <table border="1" class = "table">
+    <table border="1" class="table table-striped table-hover">
         <thead>
         <tr>
             <th>Cedula</th>
@@ -20,7 +20,16 @@
                     <td>{{$estudiante['apellido']}}</td>
                     <td>{{$estudiante['direccion']}}</td>
                     <td>{{$estudiante['telefono']}}</td>
+                    <td>
+                        <form action="{{url('estudiantes/'.$estudiante['cedula'])}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Borrar</button>
+                        </form>
+                    </td>
+                    
                 </tr>
+                
             @endforeach
         </tbody>
     </table>

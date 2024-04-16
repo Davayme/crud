@@ -59,8 +59,7 @@ class estudianteController extends Controller
     public function destroy(string $id)
     {
         $response = Http::delete(static::$url. "?cedula=".$id);
-        return redirect('/estudiante');
-
+        return redirect('/estudiantes');
         
     }
 }

@@ -9,4 +9,4 @@ Route::get('/', function () {
 Route::get('/estudiantes', [estudianteController::class, 'index']);
 Route::post('/estudiantes', [estudianteController::class, 'store']);
 Route::get('/estudiantes/create', [estudianteController::class, 'create']);
-Route::delete('/estudiantes{id}', [estudianteController::class, 'destroy']);
+Route::delete('/estudiantes/{id}', [estudianteController::class, 'destroy']);
