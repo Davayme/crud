@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Http;
 class estudianteController extends Controller
 {
     protected static $url = "http://localhost/Quinto/Tarea/controllers/apiRest.php";
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $estudiantes = Http::get(static::$url);
@@ -18,22 +15,17 @@ class estudianteController extends Controller
         return view('estudiante.mostrar', compact('estudiantesArray'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     //mostrar formulario
     public function create()
     {
-        return view('estudiantes.crear');
+        return view('estudiante.crear');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     //guardar datos
     public function store(Request $request)
     {
-        $response = Http::assForm()->post(static::$url, [
+        $response = Http::asForm()->post(static::$url, [
             'cedula' => $request->input('cedula'),
             'nombre' => $request->input('nombre'),
             'apellido' => $request->input('apellido'),
@@ -41,36 +33,28 @@ class estudianteController extends Controller
             'telefono' => $request->input('telefono'),
         ]);
 
-        return redirect('/estudiante');
+        return redirect('/estudiantes');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    //la diferencia con el metodo index es que este metodo solo muestra un solo dato
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    //mostrar formulario para editar
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    //la diferencia con edit es que este metodo actualiza los datos y en cambio edit solo muestra el formulario
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     //eliminar datos
     public function destroy(string $id)
     {

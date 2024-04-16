@@ -24,4 +24,7 @@
             @endforeach
         </tbody>
     </table>
+
+<a href="{{url('estudiantes/create')}}">Crear estudiante</a>
+@endsection
    
