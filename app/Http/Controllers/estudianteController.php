@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Http;
 class estudianteController extends Controller
 {
     protected static $url = "http://localhost/Quinto/Tarea/controllers/apiRest.php";
+
+
+
     public function index()
     {
         $estudiantes = Http::get(static::$url);
@@ -22,6 +25,9 @@ class estudianteController extends Controller
         return view('estudiante.crear');
     }
 
+    public function buscar(){
+        return view('estudiante.buscar');
+    }
     //guardar datos
     public function store(Request $request)
     {
@@ -37,10 +43,24 @@ class estudianteController extends Controller
     }
 
     //la diferencia con el metodo index es que este metodo solo muestra un solo dato
-    public function show(string $id)
+    
+    
+    
+    
+    public function show(Request $request)
     {
-        //
+        $cedula = $request->input('cedula');
+        $response = Http::get('http://localhost/Quinto/repasos/api.php' . '?cedula=' . $cedula);
+    
+        $estudiante = $response->json();
+    
+        
+return view('estudiante.buscar', ['estudiantes' => $estudiante]);
+
     }
+    
+    
+    
 
     //mostrar formulario para editar
     public function edit(string $id)
@@ -49,9 +69,24 @@ class estudianteController extends Controller
     }
 
     //la diferencia con edit es que este metodo actualiza los datos y en cambio edit solo muestra el formulario
-    public function update(Request $request, string $id)
+    public function update(Request $request, $cedula)
     {
-        //
+        $data = [
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono
+        ];
+    
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+        ])->put('http://localhost/Quinto/Tarea/controllers/apiRest.php?cedula=' . $cedula, $data);
+    
+        if ($response->successful()) {
+            return redirect('/estudiantes');
+        } else {
+            
+        }
     }
 
 
